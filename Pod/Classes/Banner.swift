@@ -128,6 +128,9 @@ open class Banner: UIView {
         return label
         }()
     
+    /// Type of the notification
+    var type: Int?
+    
     /// The image on the left of the banner.
     let image: UIImage?
     
@@ -154,7 +157,7 @@ open class Banner: UIView {
     /// - parameter image: The image on the left of the banner. Optional. Defaults to nil.
     /// - parameter backgroundColor: The color of the banner's background view. Defaults to `UIColor.blackColor()`.
     /// - parameter didTapBlock: An action to be called when the user taps on the banner. Optional. Defaults to `nil`.
-    public required init(title: String? = nil, subtitle: String? = nil, image: UIImage? = nil, backgroundColor: UIColor = UIColor.black, didTapBlock: (() -> ())? = nil) {
+    public required init(title: String? = nil, subtitle: String? = nil, type: Int? = 0, image: UIImage? = nil, backgroundColor: UIColor = UIColor.black, didTapBlock: (() -> ())? = nil) {
         self.didTapBlock = didTapBlock
         self.image = image
         super.init(frame: CGRect.zero)
@@ -167,6 +170,7 @@ open class Banner: UIView {
         detailLabel.text = subtitle
         backgroundView.backgroundColor = backgroundColor
         backgroundView.alpha = 0.95
+        self.type = type
     }
     
     private func forceUpdates() {
@@ -242,7 +246,7 @@ open class Banner: UIView {
         ]
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundView)
-        minimumHeightConstraint = backgroundView.constraintWithAttribute(.height, .greaterThanOrEqual, to: 80)
+        minimumHeightConstraint = backgroundView.constraintWithAttribute(.height, .greaterThanOrEqual, to: 100)
         addConstraint(minimumHeightConstraint) // Arbitrary, but looks nice.
         addConstraints(backgroundView.constraintsEqualToSuperview())
         backgroundView.backgroundColor = backgroundColor
