@@ -110,6 +110,9 @@ open class Banner: UIView {
         }
     }
     
+    /// Type of the notification
+    open var tag: Int?
+    
     /// The label that displays the banner's title.
     open let titleLabel: UILabel = {
         let label = UILabel()
@@ -127,9 +130,6 @@ open class Banner: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
         }()
-    
-    /// Type of the notification
-    var type: Int?
     
     /// The image on the left of the banner.
     let image: UIImage?
@@ -154,10 +154,11 @@ open class Banner: UIView {
     ///
     /// - parameter title: The title of the banner. Optional. Defaults to nil.
     /// - parameter subtitle: The subtitle of the banner. Optional. Defaults to nil.
+    /// - paramater tag: Used to identify the banner
     /// - parameter image: The image on the left of the banner. Optional. Defaults to nil.
     /// - parameter backgroundColor: The color of the banner's background view. Defaults to `UIColor.blackColor()`.
     /// - parameter didTapBlock: An action to be called when the user taps on the banner. Optional. Defaults to `nil`.
-    public required init(title: String? = nil, subtitle: String? = nil, type: Int? = 0, image: UIImage? = nil, backgroundColor: UIColor = UIColor.black, didTapBlock: (() -> ())? = nil) {
+    public required init(title: String? = nil, subtitle: String? = nil, tag: Int? = 0, image: UIImage? = nil, backgroundColor: UIColor = UIColor.black, didTapBlock: (() -> ())? = nil) {
         self.didTapBlock = didTapBlock
         self.image = image
         super.init(frame: CGRect.zero)
@@ -170,7 +171,7 @@ open class Banner: UIView {
         detailLabel.text = subtitle
         backgroundView.backgroundColor = backgroundColor
         backgroundView.alpha = 0.95
-        self.type = type
+        self.tag = tag
     }
     
     private func forceUpdates() {
