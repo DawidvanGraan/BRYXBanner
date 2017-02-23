@@ -96,6 +96,9 @@ open class Banner: UIView {
     
     /// A block to call after the banner has finished dismissing and is off screen.
     open var didDismissBlock: (() -> ())?
+
+    /// A block to call after the banner has been dismissing by the user.
+    open var didUserDismissBlock: (() -> ())?
     
     /// Whether or not the banner should dismiss itself when the user taps. Defaults to `true`.
     open var dismissesOnTap = true
@@ -202,13 +205,16 @@ open class Banner: UIView {
     internal func didTap(_ recognizer: UITapGestureRecognizer) {
         if dismissesOnTap {
             dismiss()
+            didUserDismissBlock?()
         }
         didTapBlock?()
+
     }
     
     internal func didSwipe(_ recognizer: UISwipeGestureRecognizer) {
         if dismissesOnSwipe {
             dismiss()
+            didUserDismissBlock?()
         }
     }
     
